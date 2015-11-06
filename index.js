@@ -139,7 +139,7 @@ function returnLevel(){
         allGoals:goal
     }
     var str=JSON.stringify(superObject);
-    alert("PLEASE COPY AND PASTE THE NEW TEXT AT THE BOTTOM OF THE SCREEN AND SEND IT TO wgrech.sp@mysummitps.org     IT WILL BE TESTED AND IF IT IS GOOD WILL BE INCLUDED IN THE GAME");
+    alert("PLEASE COPY AND PASTE THE NEW TEXT AT THE BOTTOM OF THE SCREEN AND SEND IT TO wgrech.sp@mysummitps.org WITH A SCREENSHOT OF THE LEVEL     IT WILL BE TESTED AND IF IT IS GOOD WILL BE INCLUDED IN THE GAME");
     $("#results").append(str);
     console.log("done append")
 }
