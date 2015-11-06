@@ -78,26 +78,26 @@ canvas.addEventListener("mouseup",function(e){
     shapeHeight=mouse.shapeEndY-mouse.shapeStartY;
     if(mouse.type==="block"){
         if(shapeWidth<0&&shapeHeight<0){
-        var newBlock=new Block(mouse.shapeStartX+shapeWidth,mouse.shapeStartY+shapeHeight,Math.abs(shapeWidth),Math.abs(shapeHeight));
+        var newBlock=new Block(mouse.shapeStartX+shapeWidth,mouse.shapeStartY+shapeHeight+9,Math.abs(shapeWidth),Math.abs(shapeHeight));
         }else if(shapeWidth<0){
-            var newBlock=new Block(mouse.shapeStartX+shapeWidth,mouse.shapeStartY,Math.abs(shapeWidth),shapeHeight);
+            var newBlock=new Block(mouse.shapeStartX+shapeWidth,mouse.shapeStartY,Math.abs(shapeWidth),shapeHeight+9);
         }else if(shapeHeight<0){
             var newBlock=new Block(mouse.shapeStartX,mouse.shapeStartY+shapeHeight,shapeWidth,Math.abs(shapeHeight));
         }else{
-            var newBlock=new Block(mouse.shapeStartX,mouse.shapeStartY,Math.abs(shapeWidth),Math.abs(shapeHeight));
+            var newBlock=new Block(mouse.shapeStartX,mouse.shapeStartY,Math.abs(shapeWidth),Math.abs(shapeHeight)+9);
         }
         console.log(newBlock)
         blocks.push(newBlock);
         mouse.lastPlaced="block";
     }else if(mouse.type==="lava"){
         if(shapeWidth<0&&shapeHeight<0){
-        var newLava=new Block(mouse.shapeStartX+shapeWidth,mouse.shapeStartY+shapeHeight,Math.abs(shapeWidth),Math.abs(shapeHeight));
+        var newLava=new Block(mouse.shapeStartX+shapeWidth,mouse.shapeStartY+shapeHeight+9,Math.abs(shapeWidth),Math.abs(shapeHeight));
         }else if(shapeWidth<0){
-            var newLava=new Block(mouse.shapeStartX+shapeWidth,mouse.shapeStartY,Math.abs(shapeWidth),shapeHeight);
+            var newLava=new Block(mouse.shapeStartX+shapeWidth,mouse.shapeStartY,Math.abs(shapeWidth),shapeHeight+9);
         }else if(shapeHeight<0){
             var newLava=new Block(mouse.shapeStartX,mouse.shapeStartY+shapeHeight,shapeWidth,Math.abs(shapeHeight));
         }else{
-            var newLava=new Block(mouse.shapeStartX,mouse.shapeStartY,Math.abs(shapeWidth),Math.abs(shapeHeight));
+            var newLava=new Block(mouse.shapeStartX,mouse.shapeStartY,Math.abs(shapeWidth),Math.abs(shapeHeight)+9);
         }
         lava.push(newLava);
         mouse.lastPlaced="lava";
