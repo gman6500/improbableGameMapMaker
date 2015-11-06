@@ -56,14 +56,16 @@ canvas.addEventListener("mouseup",function(e){
     mouse.shapeEndX=e.x-9;
     mouse.shapeEndY=e.y-9;
     var shapeWidth,shapeHeight;
+    
     shapeWidth=mouse.shapeEndX-mouse.shapeStartX;
     shapeHeight=mouse.shapeEndY-mouse.shapeStartY;
     if(mouse.type==="block"){
-        var newBlock=new Block(mouse.shapeStartX,mouse.shapeStartY,shapeWidth,shapeHeight);
+        
+        var newBlock=new Block(mouse.shapeStartX+shapeWidth,mouse.shapeStartY+shapeHeight,Math.abs(shapeWidth),Math.abs(shapeHeight));
         console.log(newBlock)
         blocks.push(newBlock);
     }else if(mouse.type==="lava"){
-        var newLava=new Block(mouse.shapeStartX,mouse.shapeStartY,shapeWidth,shapeHeight);
+        var newLava=new Block(mouse.shapeStartX+shapeWidth,mouse.shapeStartY+shapeHeight,Math.abs(shapeWidth),Math.abs(shapeHeight));
         lava.push(newLava);
     }
     
