@@ -23,7 +23,8 @@ var mouse={
     type:"block",
     hasPlayerStart:false,
     hasGoal:false,
-    playerSpawn:{x:0,y:0}
+    playerSpawn:{x:0,y:0},
+    lastPlaced:''
 }
 function Block(x,y,width,height){
     this.x=x;
@@ -48,12 +49,14 @@ canvas.addEventListener("mousedown",function(e){
         //add a 10 x 10 jump pow here once constructor is done
         var newJump=new Block(mouse.x-5,mouse.y-5,10,10);
         jumpPow.push(newJump)
+        mouse.lastPlaced="jump";
     }else if(mouse.type==='goal'){
         if(!mouse.hasGoal){
             mouse.hasGoal=true;
         }
         var newGoal=new Block(mouse.x-5,mouse.y-5,10,10);
         goal.push(newGoal);
+        mouse.lastPlaced="goal";
     }else if(mouse.type==='start'){
         var newPlayerSpawn=new Block(mouse.x-10,mouse.y-10,15,15);
         mouse.playerSpawn.x=mouse.x-10;
@@ -85,6 +88,7 @@ canvas.addEventListener("mouseup",function(e){
         }
         console.log(newBlock)
         blocks.push(newBlock);
+        mouse.lastPlaced="block";
     }else if(mouse.type==="lava"){
         if(shapeWidth<0&&shapeHeight<0){
         var newLava=new Block(mouse.shapeStartX+shapeWidth,mouse.shapeStartY+shapeHeight,Math.abs(shapeWidth),Math.abs(shapeHeight));
@@ -96,6 +100,7 @@ canvas.addEventListener("mouseup",function(e){
             var newLava=new Block(mouse.shapeStartX,mouse.shapeStartY,Math.abs(shapeWidth),Math.abs(shapeHeight));
         }
         lava.push(newLava);
+        mouse.lastPlaced="lava";
     }
     
 })
@@ -180,4 +185,16 @@ function returnLevel(){
     }else{
         alert("Please add a goal")
     }
+}
+function undo(){
+    if(mouse.lastPlaced==='jump'){
+        jumpPow.pop()
+    }else if(mouse.lastPlaced==='block'){
+        blocks.pop()
+    }else if(mouse.lastPlaced==='lava'){
+        lava.pop()
+    }else if(mouse.lastPlaced==='goal'){
+        goal.pop()
+    }
+    ctx.clearRect(0,0,width,height);
 }
