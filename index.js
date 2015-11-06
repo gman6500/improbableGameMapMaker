@@ -20,7 +20,9 @@ var mouse={
     shapeStartY:0,
     shapeEndX:0,
     shapeEndY:0,
-    type:"block"
+    type:"block",
+    hasPlayerStart:false,
+    playerSpawn:{x:0,y:0}
 }
 function Block(x,y,width,height){
     this.x=x;
@@ -48,6 +50,14 @@ canvas.addEventListener("mousedown",function(e){
     }else if(mouse.type==='goal'){
         var newGoal=new Block(mouse.x-5,mouse.y-5,10,10);
         goal.push(newGoal);
+    }else if(mouse.type==='start'){
+        var newPlayerSpawn=new Block(mouse.x-10,mouse.y-10,15,15);
+        mouse.playerSpawn.x=mouse.x-10;
+        mouse.playerSpawn.y=mouse.y-10
+        mouse.hasPlayerStart=true;
+        ctx.clearRect(0,0,width,height)
+        ctx.fillStyle="pink";
+        ctx.fillRect(newPlayerSpawn.x,newPlayerSpawn.y,newPlayerSpawn.width,newPlayerSpawn.height)
     }
 })
 canvas.addEventListener("mouseup",function(e){
@@ -60,12 +70,27 @@ canvas.addEventListener("mouseup",function(e){
     shapeWidth=mouse.shapeEndX-mouse.shapeStartX;
     shapeHeight=mouse.shapeEndY-mouse.shapeStartY;
     if(mouse.type==="block"){
-        
+        if(shapeWidth<0&&shapeHeight<0){
         var newBlock=new Block(mouse.shapeStartX+shapeWidth,mouse.shapeStartY+shapeHeight,Math.abs(shapeWidth),Math.abs(shapeHeight));
+        }else if(shapeWidth<0){
+            var newBlock=new Block(mouse.shapeStartX+shapeWidth,mouse.shapeStartY,Math.abs(shapeWidth),shapeHeight);
+        }else if(shapeHeight<0){
+            var newBlock=new Block(mouse.shapeStartX,mouse.shapeStartY+shapeHeight,shapeWidth,Math.abs(shapeHeight));
+        }else{
+            var newBlock=new Block(mouse.shapeStartX,mouse.shapeStartY,Math.abs(shapeWidth),Math.abs(shapeHeight));
+        }
         console.log(newBlock)
         blocks.push(newBlock);
     }else if(mouse.type==="lava"){
+        if(shapeWidth<0&&shapeHeight<0){
         var newLava=new Block(mouse.shapeStartX+shapeWidth,mouse.shapeStartY+shapeHeight,Math.abs(shapeWidth),Math.abs(shapeHeight));
+        }else if(shapeWidth<0){
+            var newLava=new Block(mouse.shapeStartX+shapeWidth,mouse.shapeStartY,Math.abs(shapeWidth),shapeHeight);
+        }else if(shapeHeight<0){
+            var newLava=new Block(mouse.shapeStartX,mouse.shapeStartY+shapeHeight,shapeWidth,Math.abs(shapeHeight));
+        }else{
+            var newLava=new Block(mouse.shapeStartX,mouse.shapeStartY,Math.abs(shapeWidth),Math.abs(shapeHeight));
+        }
         lava.push(newLava);
     }
     
