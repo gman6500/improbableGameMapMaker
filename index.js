@@ -163,7 +163,8 @@ function returnLevel(){
         allLava:lava,
         allBlocks:blocks,
         allJumps:jumpPow,
-        allGoals:goal
+        allGoals:goal,
+        playerStart:mouse.playerSpawn
     }
     var str=JSON.stringify(superObject);
     alert("PLEASE COPY AND PASTE THE NEW TEXT AT THE BOTTOM OF THE SCREEN AND SEND IT TO wgrech.sp@mysummitps.org WITH A SCREENSHOT OF THE LEVEL     IT WILL BE TESTED AND IF IT IS GOOD WILL BE INCLUDED IN THE GAME");
