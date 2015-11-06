@@ -22,6 +22,7 @@ var mouse={
     shapeEndY:0,
     type:"block",
     hasPlayerStart:false,
+    hasGoal:false,
     playerSpawn:{x:0,y:0}
 }
 function Block(x,y,width,height){
@@ -48,6 +49,9 @@ canvas.addEventListener("mousedown",function(e){
         var newJump=new Block(mouse.x-5,mouse.y-5,10,10);
         jumpPow.push(newJump)
     }else if(mouse.type==='goal'){
+        if(!mouse.hasGoal){
+            mouse.hasGoal=true;
+        }
         var newGoal=new Block(mouse.x-5,mouse.y-5,10,10);
         goal.push(newGoal);
     }else if(mouse.type==='start'){
@@ -157,6 +161,7 @@ document.addEventListener("load",function(){
     
 })
 function returnLevel(){
+    if(mouse.hasPlayerStart&&mouse.hasGoal){
     console.log("returning level")
     alert("SAVING LEVEL")
     var superObject={
@@ -170,4 +175,9 @@ function returnLevel(){
     alert("PLEASE COPY AND PASTE THE NEW TEXT AT THE BOTTOM OF THE SCREEN AND SEND IT TO wgrech.sp@mysummitps.org WITH A SCREENSHOT OF THE LEVEL     IT WILL BE TESTED AND IF IT IS GOOD WILL BE INCLUDED IN THE GAME");
     $("#results").append(str);
     console.log("done append")
+    }else if(!mouse.hasPlayerStart){
+        alert("Please add a player spawn")
+    }else{
+        alert("Please add a goal")
+    }
 }
