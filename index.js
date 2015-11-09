@@ -44,21 +44,21 @@ canvas.addEventListener("mousedown",function(e){
 //     console.log(e.x);
 //     console.log(e.y);
     mouse.shapeStartX=e.x-9;
-    mouse.shapeStartY=e.y-9;
+    mouse.shapeStartY=e.y;
     if(mouse.type==="jumpPow"){
         //add a 10 x 10 jump pow here once constructor is done
-        var newJump=new Block(mouse.x-5,mouse.y-5,10,10);
+        var newJump=new Block(mouse.x-5,mouse.y+15,10,10);
         jumpPow.push(newJump)
         mouse.lastPlaced="jump";
     }else if(mouse.type==='goal'){
         if(!mouse.hasGoal){
             mouse.hasGoal=true;
         }
-        var newGoal=new Block(mouse.x-5,mouse.y-5,10,10);
+        var newGoal=new Block(mouse.x-5,mouse.y+15,10,10);
         goal.push(newGoal);
         mouse.lastPlaced="goal";
     }else if(mouse.type==='start'){
-        var newPlayerSpawn=new Block(mouse.x-10,mouse.y-10,15,15);
+        var newPlayerSpawn=new Block(mouse.x-10,mouse.y+15,15,15);
         mouse.playerSpawn.x=mouse.x-10;
         mouse.playerSpawn.y=mouse.y-10
         mouse.hasPlayerStart=true;
@@ -71,20 +71,20 @@ canvas.addEventListener("mouseup",function(e){
 //     console.log(e.x);
 //     console.log(e.y);
     mouse.shapeEndX=e.x-9;
-    mouse.shapeEndY=e.y-9;
+    mouse.shapeEndY=e.y;
     var shapeWidth,shapeHeight;
     
     shapeWidth=mouse.shapeEndX-mouse.shapeStartX;
     shapeHeight=mouse.shapeEndY-mouse.shapeStartY;
     if(mouse.type==="block"){
         if(shapeWidth<0&&shapeHeight<0){
-        var newBlock=new Block(mouse.shapeStartX+shapeWidth,mouse.shapeStartY+shapeHeight+9,Math.abs(shapeWidth),Math.abs(shapeHeight));
+        var newBlock=new Block(mouse.shapeStartX+shapeWidth,mouse.shapeStartY+shapeHeight+15,Math.abs(shapeWidth),Math.abs(shapeHeight));
         }else if(shapeWidth<0){
-            var newBlock=new Block(mouse.shapeStartX+shapeWidth,mouse.shapeStartY,Math.abs(shapeWidth),shapeHeight+9);
+            var newBlock=new Block(mouse.shapeStartX+shapeWidth,mouse.shapeStartY,Math.abs(shapeWidth),shapeHeight+15);
         }else if(shapeHeight<0){
-            var newBlock=new Block(mouse.shapeStartX,mouse.shapeStartY+shapeHeight,shapeWidth,Math.abs(shapeHeight));
+            var newBlock=new Block(mouse.shapeStartX,mouse.shapeStartY+shapeHeight+10,shapeWidth,Math.abs(shapeHeight));
         }else{
-            var newBlock=new Block(mouse.shapeStartX,mouse.shapeStartY,Math.abs(shapeWidth),Math.abs(shapeHeight)+9);
+            var newBlock=new Block(mouse.shapeStartX,mouse.shapeStartY,Math.abs(shapeWidth),Math.abs(shapeHeight)+15);
         }
         console.log(newBlock)
         blocks.push(newBlock);
@@ -93,11 +93,11 @@ canvas.addEventListener("mouseup",function(e){
         if(shapeWidth<0&&shapeHeight<0){
         var newLava=new Block(mouse.shapeStartX+shapeWidth,mouse.shapeStartY+shapeHeight+9,Math.abs(shapeWidth),Math.abs(shapeHeight));
         }else if(shapeWidth<0){
-            var newLava=new Block(mouse.shapeStartX+shapeWidth,mouse.shapeStartY,Math.abs(shapeWidth),shapeHeight+9);
+            var newLava=new Block(mouse.shapeStartX+shapeWidth,mouse.shapeStartY,Math.abs(shapeWidth),shapeHeight+15);
         }else if(shapeHeight<0){
             var newLava=new Block(mouse.shapeStartX,mouse.shapeStartY+shapeHeight,shapeWidth,Math.abs(shapeHeight));
         }else{
-            var newLava=new Block(mouse.shapeStartX,mouse.shapeStartY,Math.abs(shapeWidth),Math.abs(shapeHeight)+9);
+            var newLava=new Block(mouse.shapeStartX,mouse.shapeStartY,Math.abs(shapeWidth),Math.abs(shapeHeight)+15);
         }
         lava.push(newLava);
         mouse.lastPlaced="lava";
@@ -197,4 +197,12 @@ function undo(){
         goal.pop()
     }
     ctx.clearRect(0,0,width,height);
+}
+function load(){
+    var inputedLevel=prompt("Please enter level text to edit. WARNING! THIS WILL DELETE ALL OTHER PROGRESS ON CURRENT LEVEL!!!");
+    var levelObject=JSON.parse(inputedLevel);
+    lava= levelObject.allLava;
+    blocks=levelObject.allBlocks;
+    jumpPow=levelObject.allJumps;
+    goal=levelObject.allGoals;
 }
