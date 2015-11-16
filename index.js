@@ -47,18 +47,18 @@ canvas.addEventListener("mousedown",function(e){
     mouse.shapeStartY=e.y;
     if(mouse.type==="jumpPow"){
         //add a 10 x 10 jump pow here once constructor is done
-        var newJump=new Block(mouse.x-5,mouse.y+15,10,10);
+        var newJump=new Block(mouse.x-5,mouse.y-7,10,10);
         jumpPow.push(newJump)
         mouse.lastPlaced="jump";
     }else if(mouse.type==='goal'){
         if(!mouse.hasGoal){
             mouse.hasGoal=true;
         }
-        var newGoal=new Block(mouse.x-5,mouse.y+15,10,10);
+        var newGoal=new Block(mouse.x-5,mouse.y-7,10,10);
         goal.push(newGoal);
         mouse.lastPlaced="goal";
     }else if(mouse.type==='start'){
-        var newPlayerSpawn=new Block(mouse.x-10,mouse.y+15,15,15);
+        var newPlayerSpawn=new Block(mouse.x-10,mouse.y-7,15,15);
         mouse.playerSpawn.x=mouse.x-10;
         mouse.playerSpawn.y=mouse.y-10
         mouse.hasPlayerStart=true;
@@ -71,18 +71,18 @@ canvas.addEventListener("mouseup",function(e){
 //     console.log(e.x);
 //     console.log(e.y);
     mouse.shapeEndX=e.x-9;
-    mouse.shapeEndY=e.y;
+    mouse.shapeEndY=e.y-15;
     var shapeWidth,shapeHeight;
     
     shapeWidth=mouse.shapeEndX-mouse.shapeStartX;
     shapeHeight=mouse.shapeEndY-mouse.shapeStartY;
     if(mouse.type==="block"){
         if(shapeWidth<0&&shapeHeight<0){
-        var newBlock=new Block(mouse.shapeStartX+shapeWidth,mouse.shapeStartY+shapeHeight+15,Math.abs(shapeWidth),Math.abs(shapeHeight));
+        var newBlock=new Block(mouse.shapeStartX+shapeWidth,mouse.shapeStartY+shapeHeight+9,Math.abs(shapeWidth),Math.abs(shapeHeight));
         }else if(shapeWidth<0){
             var newBlock=new Block(mouse.shapeStartX+shapeWidth,mouse.shapeStartY,Math.abs(shapeWidth),shapeHeight+15);
         }else if(shapeHeight<0){
-            var newBlock=new Block(mouse.shapeStartX,mouse.shapeStartY+shapeHeight+10,shapeWidth,Math.abs(shapeHeight));
+            var newBlock=new Block(mouse.shapeStartX,mouse.shapeStartY+shapeHeight+5,shapeWidth,Math.abs(shapeHeight));
         }else{
             var newBlock=new Block(mouse.shapeStartX,mouse.shapeStartY,Math.abs(shapeWidth),Math.abs(shapeHeight)+15);
         }
@@ -95,7 +95,7 @@ canvas.addEventListener("mouseup",function(e){
         }else if(shapeWidth<0){
             var newLava=new Block(mouse.shapeStartX+shapeWidth,mouse.shapeStartY,Math.abs(shapeWidth),shapeHeight+15);
         }else if(shapeHeight<0){
-            var newLava=new Block(mouse.shapeStartX,mouse.shapeStartY+shapeHeight,shapeWidth,Math.abs(shapeHeight));
+            var newLava=new Block(mouse.shapeStartX,mouse.shapeStartY+shapeHeight+5,shapeWidth,Math.abs(shapeHeight));
         }else{
             var newLava=new Block(mouse.shapeStartX,mouse.shapeStartY,Math.abs(shapeWidth),Math.abs(shapeHeight)+15);
         }
